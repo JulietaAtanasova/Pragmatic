@@ -6,15 +6,19 @@ class Operations
         Console.WriteLine("Enter a number:");
         double firstNumber = double.Parse(Console.ReadLine());
 
-        Console.WriteLine("Choose type of operation [+, -, *, /: ");
+        Console.WriteLine("Choose type of operation:\n +, -, *, /");
         string operation = Console.ReadLine();
 
         Console.WriteLine("Enter a number:");
         double secondNumber = double.Parse(Console.ReadLine());
 
         Console.Clear();
-        double result = firstNumber;
+        Calculate(firstNumber, operation, secondNumber);
+    }
 
+    private static void Calculate(double firstNumber, string operation, double secondNumber)
+    {
+        double result = firstNumber;
         switch (operation)
         {
             case "+":

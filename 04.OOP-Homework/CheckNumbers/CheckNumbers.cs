@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CheckNumbers
 {
@@ -8,9 +9,17 @@ namespace CheckNumbers
         static void Main()
         {
             Console.WriteLine("Enter numbers in range [0...100]. The program will ends when you enter 0.");
+            List<int> numbers = ReadListOfNumbers();
+            PrintReversedList(numbers);
+            PrintNumbersBiggerThanAverage(numbers);
+            int lastNumber = numbers[numbers.Count - 1];
+            Console.WriteLine("Count of last number: {0}", CountNumber(numbers, lastNumber));
+        }
+
+        private static List<int> ReadListOfNumbers()
+        {
             List<int> numbers = new List<int>();
-            double sum = 0;
-            while(true)
+            while (true)
             {
                 int n = int.Parse(Console.ReadLine());
                 if (n == 0)
@@ -23,17 +32,12 @@ namespace CheckNumbers
                     continue;
                 }
                 numbers.Add(n);
-                sum += n;
             }
-
             Console.Clear();
-            int lastNumber = numbers[numbers.Count - 1];
-            PrintRevesedList(numbers);
-            PrintNumbersBiggerThanAverage(numbers, sum);
-            Console.WriteLine("Count of last number: {0}", CountNumber(numbers, lastNumber));
-
+            return numbers;
         }
-        static void PrintRevesedList(List<int> list)
+
+        static void PrintReversedList(List<int> list)
         {
             list.Reverse();
             Console.WriteLine("Reversed numbers: ");
@@ -42,10 +46,12 @@ namespace CheckNumbers
                 Console.Write(item + " ");
             }
             Console.WriteLine();
+            list.Reverse();
         }
 
-        static void PrintNumbersBiggerThanAverage(List<int> list, double sum)
+        static void PrintNumbersBiggerThanAverage(List<int> list)
         {
+            double sum = list.Sum();
             double average = sum / list.Count;
             Console.WriteLine("Numbers bigger than average number: ");
             foreach (var item in list)
